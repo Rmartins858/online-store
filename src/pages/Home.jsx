@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getCategories } from '../services/api';
 
 class Home extends React.Component {
+  state = {
+    categories: [],
+  }
+
+  categories = async () => getCategories
+
   render() {
     return (
       <div>
