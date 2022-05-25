@@ -4,7 +4,7 @@ import CategorieButton from './CategorieButton';
 
 class CategoriesDisplay extends Component {
   render() {
-    const { categories } = this.props;
+    const { categories, onButtonClick } = this.props;
     return (
       <aside>
         <h1>Categorias</h1>
@@ -14,6 +14,7 @@ class CategoriesDisplay extends Component {
               <CategorieButton
                 labelText={ name }
                 inputId={ id }
+                onButtonClick={ onButtonClick }
               />
             </li>))}
         </ul>
@@ -27,6 +28,7 @@ CategoriesDisplay.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   })).isRequired,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
 export default CategoriesDisplay;
