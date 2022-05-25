@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import CategorieButton from '../components/CategorieButton';
+import CategoriesDisplay from '../components/CategoriesDisplay';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
@@ -38,7 +38,6 @@ class Home extends React.Component {
   render() {
     const { categories, search, searchList } = this.state;
     return (
-
       <div>
         <input
           type="text"
@@ -59,18 +58,7 @@ class Home extends React.Component {
         <h1 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h1>
-        <aside>
-          <h1>Categorias</h1>
-          <ul>
-            {categories.map(({ name, id }) => (
-              <li key={ id }>
-                <CategorieButton
-                  labelText={ name }
-                  inputId={ id }
-                />
-              </li>))}
-          </ul>
-        </aside>
+        <CategoriesDisplay categories={ categories } />
         <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
         <div>
           { searchList.length === 0 ? (
