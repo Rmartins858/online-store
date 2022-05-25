@@ -9,6 +9,7 @@ class Home extends React.Component {
     categories: [],
     searchList: [],
     search: [],
+    elementsCard: [],
   }
 
   componentDidMount() {
@@ -43,6 +44,13 @@ class Home extends React.Component {
   fetchCategories = async () => {
     const categories = await getCategories();
     this.setState({ categories });
+  }
+
+  onButtonClick = ({ target }) => {
+    const { name } = target;
+    this.setState((prevState) => ({
+      elementsCard: [...prevState.elementsCard, name],
+    }));
   }
 
   render() {
@@ -84,6 +92,7 @@ class Home extends React.Component {
               productTitle={ product.title }
               productThumbnail={ product.thumbnail }
               productPrice={ product.price }
+              onClick={ this.onButtonClick }
             />
           )) }
         </div>
