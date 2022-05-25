@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class ShoppingCart extends Component {
   render() {
@@ -9,6 +10,7 @@ class ShoppingCart extends Component {
         >
           Seu carrinho está vazio
         </h2>
+        <Link to="checkout" data-testid="checkout-products">Finalizar Compra</Link>
       </div>
     );
   }
