@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
 import CategoriesDisplay from '../components/CategoriesDisplay';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
@@ -24,6 +25,15 @@ class Home extends React.Component {
   listageral= async () => {
     const { search } = this.state;
     const test = await getProductsFromCategoryAndQuery(undefined, search);
+    console.log(test);
+    this.setState({
+      searchList: test.results,
+    });
+  }
+
+  renderCategorieProducts = async ({ target }) => {
+    const { id } = target;
+    const test = await getProductsFromCategoryAndQuery(undefined, id);
     console.log(test);
     this.setState({
       searchList: test.results,
@@ -58,18 +68,23 @@ class Home extends React.Component {
         <h1 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h1>
-        <CategoriesDisplay categories={ categories } />
+        <CategoriesDisplay
+          categories={ categories }
+          onButtonClick={ this.renderCategorieProducts }
+        />
         <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
         <div>
           { searchList.length === 0 ? (
             <h1> Nenhum produto foi encotrado</h1>
 
-          ) : searchList.map((product, key) => (
-            <section data-testid="product" key={ key }>
-              <h1>{product.title}</h1>
-              <h2>{product.price}</h2>
-              <img src={ product.thumbnail } alt={ product.id } />
-            </section>
+          ) : searchList.map((product) => (
+            <ProductCard
+              key={ product.id }
+              productId={ product.id }
+              productTitle={ product.title }
+              productThumbnail={ product.thumbnail }
+              productPrice={ product.price }
+            />
           )) }
         </div>
       </div>

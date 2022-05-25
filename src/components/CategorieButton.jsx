@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 class CategorieButton extends Component {
   render() {
-    const { labelText, inputId } = this.props;
+    const { labelText, onButtonClick } = this.props;
     return (
-      <label htmlFor={ inputId } data-testid="category">
+      <label htmlFor={ labelText } data-testid="category">
         <input
           type="radio"
           name="categories"
-          id={ inputId }
+          id={ labelText }
+          onClick={ onButtonClick }
         />
         { labelText }
       </label>
@@ -19,7 +20,8 @@ class CategorieButton extends Component {
 
 CategorieButton.propTypes = {
   labelText: PropTypes.string.isRequired,
-  inputId: PropTypes.string.isRequired,
+  // inputId: PropTypes.string.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
 export default CategorieButton;
