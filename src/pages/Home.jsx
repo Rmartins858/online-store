@@ -48,6 +48,9 @@ class Home extends React.Component {
 
   onButtonClick = ({ target }) => {
     const { name } = target;
+    const { searchList } = this.state;
+    const cartProduct = searchList.find((product) => product.id === name);
+    console.log(cartProduct);
     this.setState((prevState) => ({
       elementsCard: [...prevState.elementsCard, name],
     }));
