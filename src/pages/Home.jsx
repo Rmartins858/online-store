@@ -100,6 +100,7 @@ class Home extends React.Component {
               productThumbnail={ product.thumbnail }
               productPrice={ product.price }
               onClick={ this.onButtonClick }
+              freeShipping={ product.shipping.free_shipping }
             />
           )) }
         </div>

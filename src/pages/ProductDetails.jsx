@@ -90,6 +90,8 @@ class ProductDetails extends React.Component {
       const { match: { params: { id } } } = this.props;
       return (
         <div name={ product.id } data-testid="product">
+          {product.shipping.free_shipping === true && (
+            <p data-testid="free-shipping">Frete grátis</p>)}
           <img src={ product.thumbnail } alt={ product.title } />
           <p data-testid="product-detail-name">{product.title}</p>
           <p>{product.price}</p>

@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 class ProductCard extends Component {
   render() {
     const { productId, productTitle, productThumbnail,
-      productPrice, onClick } = this.props;
+      productPrice, onClick, freeShipping } = this.props;
     return (
       <section
         data-testid="product"
         id={ productId }
       >
         <h2>{ productTitle }</h2>
+        {freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
         <img src={ productThumbnail } alt={ `Imagem de ${productTitle}` } />
         <p>
           R$
@@ -46,6 +47,7 @@ ProductCard.propTypes = {
   productThumbnail: PropTypes.string.isRequired,
   productPrice: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
+  freeShipping: PropTypes.bool.isRequired,
 };
 
 export default ProductCard;
