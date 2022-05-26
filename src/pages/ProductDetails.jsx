@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductsFromID } from '../services/api';
 
 class ProductDetails extends React.Component {
     state ={
-      products: {},
+      product: {},
       attributes: [],
+      cartItems: [],
       email: '',
       message: '',
       nota: '',
@@ -14,25 +16,36 @@ class ProductDetails extends React.Component {
 
     componentDidMount= async () => {
       await this.searchProduct();
-      await this.productsDet();
+      await this.getCartItemsFromLocalStorage();
       await this.getAvaliationFromLocalStorage();
+    }
+
+    getCartItemsFromLocalStorage = () => {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+      this.setState({ cartItems });
     }
 
     searchProduct = async () => {
       const { match } = this.props;
       const productAPI = await getProductsFromID(match.params.id);
+      const { attributes } = productAPI;
+
       this.setState({
-        products: productAPI,
+        product: productAPI,
+        attributes,
       });
     }
 
-    productsDet = () => {
-      const { products } = this.state;
-      const { attributes } = products;
-      const detailsAttribute = attributes.map((i) => i);
-      this.setState({
-        attributes: detailsAttribute,
-      });
+    saveCartItemsInLocalStorage = () => {
+      const { cartItems } = this.state;
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }
+
+    addProductToCart = () => {
+      const { product, cartItems } = this.state;
+      this.setState((prevState) => ({
+        cartItems: cartItems ? [...prevState.cartItems, product] : [product],
+      }), this.saveCartItemsInLocalStorage);
     }
 
     onRadioButtonClick = ({ target }) => {
@@ -73,6 +86,14 @@ class ProductDetails extends React.Component {
     }
 
     render() {
+
+      const { product, attributes } = this.state;
+      return (
+        <div name={ product.id } data-testid="product">
+          <img src={ product.thumbnail } alt={ product.title } />
+          <p data-testid="product-detail-name">{product.title}</p>
+          <p>{product.price}</p>
+
       const { products, attributes, avaliations } = this.state;
       const { match: { params: { id } } } = this.props;
       return (
@@ -80,6 +101,7 @@ class ProductDetails extends React.Component {
           <img src={ products.thumbnail } alt={ products.title } />
           <h1 data-testid="product-detail-name">{products.title}</h1>
           <h2>{products.price}</h2>
+
           <ul>
             {attributes.map((i) => (
               <li key={ i.id }>
@@ -87,6 +109,16 @@ class ProductDetails extends React.Component {
               </li>
             ))}
           </ul>
+
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.addProductToCart }
+          >
+            Adicionar ao Carrinho
+          </button>
+          <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
+
           <div>
             <h1>Avaliações</h1>
             <form>
