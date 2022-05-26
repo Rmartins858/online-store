@@ -9,7 +9,7 @@ class Home extends React.Component {
     categories: [],
     searchList: [],
     search: [],
-    elementsCard: [],
+    cartItems: [],
   }
 
   componentDidMount() {
@@ -46,11 +46,19 @@ class Home extends React.Component {
     this.setState({ categories });
   }
 
+  saveCartItemsInLocalStorage = () => {
+    const { cartItems } = this.state;
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }
+
   onButtonClick = ({ target }) => {
     const { name } = target;
+    const { searchList } = this.state;
+    const cartItem = searchList.find((product) => product.id === name);
+
     this.setState((prevState) => ({
-      elementsCard: [...prevState.elementsCard, name],
-    }));
+      cartItems: [...prevState.cartItems, cartItem],
+    }), this.saveCartItemsInLocalStorage);
   }
 
   render() {
@@ -71,7 +79,6 @@ class Home extends React.Component {
           {' '}
           Enviar
           {' '}
-
         </button>
         <h1 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
