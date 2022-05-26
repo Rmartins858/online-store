@@ -10,6 +10,7 @@ class ProductDetails extends React.Component {
 
     componentDidMount= async () => {
       await this.searchProduct();
+      await this.productsDet();
     }
 
     searchProduct = async () => {
