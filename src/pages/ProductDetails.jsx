@@ -86,21 +86,13 @@ class ProductDetails extends React.Component {
     }
 
     render() {
-
-      const { product, attributes } = this.state;
+      const { product, attributes, avaliations } = this.state;
+      const { match: { params: { id } } } = this.props;
       return (
         <div name={ product.id } data-testid="product">
           <img src={ product.thumbnail } alt={ product.title } />
           <p data-testid="product-detail-name">{product.title}</p>
           <p>{product.price}</p>
-
-      const { products, attributes, avaliations } = this.state;
-      const { match: { params: { id } } } = this.props;
-      return (
-        <div name={ products.id } data-testid="product">
-          <img src={ products.thumbnail } alt={ products.title } />
-          <h1 data-testid="product-detail-name">{products.title}</h1>
-          <h2>{products.price}</h2>
 
           <ul>
             {attributes.map((i) => (

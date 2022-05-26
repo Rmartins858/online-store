@@ -6,8 +6,8 @@ class ShoppingCart extends Component {
     cartItems: [],
   }
 
-  componentDidMount() {
-    this.getCartItemsFromLocalStorage();
+  componentDidMount = async () => {
+    await this.getCartItemsFromLocalStorage();
   }
 
   getCartItemsFromLocalStorage = () => {
