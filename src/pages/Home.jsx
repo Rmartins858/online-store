@@ -51,6 +51,7 @@ class Home extends React.Component {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
+  // Adiciona quantidades
   onButtonClick = ({ target }) => {
     const { name } = target;
     const { searchList } = this.state;

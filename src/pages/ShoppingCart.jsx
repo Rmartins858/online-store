@@ -48,8 +48,16 @@ class ShoppingCart extends Component {
                 <div key={ item.id }>
                   <img src={ item.thumbnail } alt={ item.title } />
                   <h2 data-testid="shopping-cart-product-name">{ item.title }</h2>
-                  <p>{ item.price * item.quantity }</p>
-                  <p data-testid="shopping-cart-product-quantity">{item.quantity}</p>
+                  <p>
+                    Preço: R$
+                    {' '}
+                    { item.price * item.quantity }
+                  </p>
+                  <p data-testid="shopping-cart-product-quantity">
+                    Quantidade:
+                    {' '}
+                    {item.quantity}
+                  </p>
                   <button
                     type="button"
                     onClick={ this.plusQuantity }
