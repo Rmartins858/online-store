@@ -46,36 +46,44 @@ class ShoppingCart extends Component {
             {cartItems && (
               cartItems.map((item) => (
                 <div key={ item.id }>
-                  <img src={ item.thumbnail } alt={ item.title } />
+                  <img
+                    src={ item.thumbnail }
+                    alt={ item.title }
+                    style={ { width: '7cm' } }
+                  />
                   <h2 data-testid="shopping-cart-product-name">{ item.title }</h2>
-                  <p>
+                  <p style={ { fontWeight: 'bold' } }>
                     Preço: R$
                     {' '}
                     { item.price * item.quantity }
                   </p>
-                  <p data-testid="shopping-cart-product-quantity">
+                  <div style={ { display: 'flex' } }>
                     Quantidade:
                     {' '}
-                    {item.quantity}
-                  </p>
-                  <button
-                    type="button"
-                    data-testid="product-increase-quantity"
-                    onClick={ this.plusQuantity }
-                    name={ item.id }
-                  >
-                    +
+                    <p data-testid="shopping-cart-product-quantity">
+                      {item.quantity}
+                    </p>
+                    <button
+                      type="button"
+                      data-testid="product-increase-quantity"
+                      onClick={ this.plusQuantity }
+                      name={ item.id }
+                      style={ { margin: '5px' } }
+                    >
+                      +
 
-                  </button>
-                  <button
-                    type="button"
-                    data-testid="product-decrease-quantity"
-                    onClick={ this.minusQuantity }
-                    name={ item.id }
-                  >
-                    -
+                    </button>
+                    <button
+                      type="button"
+                      data-testid="product-decrease-quantity"
+                      onClick={ this.minusQuantity }
+                      name={ item.id }
+                      style={ { margin: '5px' } }
+                    >
+                      -
 
-                  </button>
+                    </button>
+                  </div>
                 </div>
               ))
             )}

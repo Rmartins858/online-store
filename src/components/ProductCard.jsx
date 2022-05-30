@@ -11,23 +11,29 @@ class ProductCard extends Component {
         data-testid="product"
         id={ productId }
       >
-        <h2>{ productTitle }</h2>
+        <h3>{ productTitle }</h3>
         {freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
-        <img src={ productThumbnail } alt={ `Imagem de ${productTitle}` } />
-        <p>
+        <img
+          src={ productThumbnail }
+          alt={ `Imagem de ${productTitle}` }
+          style={ { width: '5cm' } }
+        />
+        <p style={ { fontWeight: 'bold' } }>
           R$
           {' '}
           <span>{ productPrice }</span>
         </p>
-        <Link
-          data-testid="product-detail-link"
-          to={ `/product-details/${productId}` }
-        >
-          {' '}
-          Detalhes
-          {' '}
+        <div style={ { margin: '15px' } }>
+          <Link
+            data-testid="product-detail-link"
+            to={ `/product-details/${productId}` }
+          >
+            {' '}
+            Detalhes
+            {' '}
 
-        </Link>
+          </Link>
+        </div>
         <button
           type="button"
           data-testid="product-add-to-cart"

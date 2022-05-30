@@ -67,44 +67,58 @@ class Home extends React.Component {
     const { categories, search, searchList } = this.state;
     return (
       <div>
-        <input
-          type="text"
-          value={ search }
-          data-testid="query-input"
-          onChange={ this.onInputChange }
-        />
-        <button
-          type="button"
-          data-testid="query-button"
-          onClick={ this.listageral }
-        >
-          {' '}
-          Enviar
-          {' '}
-        </button>
-        <h1 data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h1>
-        <CategoriesDisplay
-          categories={ categories }
-          onButtonClick={ this.renderCategorieProducts }
-        />
-        <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
-        <div>
-          { searchList.length === 0 ? (
-            <h1> Nenhum produto foi encotrado</h1>
-
-          ) : searchList.map((product) => (
-            <ProductCard
-              key={ product.id }
-              productId={ product.id }
-              productTitle={ product.title }
-              productThumbnail={ product.thumbnail }
-              productPrice={ product.price }
-              onClick={ this.onButtonClick }
-              freeShipping={ product.shipping.free_shipping }
+        <header>
+          <div>
+            <h3 data-testid="home-initial-message">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </h3>
+            <input
+              type="text"
+              value={ search }
+              data-testid="query-input"
+              placeholder="Pesquisar produto"
+              onChange={ this.onInputChange }
             />
-          )) }
+            <button
+              type="button"
+              data-testid="query-button"
+              onClick={ this.listageral }
+            >
+              {' '}
+              Enviar
+              {' '}
+            </button>
+          </div>
+          <section className="cart-icon">
+            <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
+          </section>
+        </header>
+        <div className="divisory">
+          <section className="categories">
+            <CategoriesDisplay
+              categories={ categories }
+              onButtonClick={ this.renderCategorieProducts }
+            />
+          </section>
+          <section className="productList">
+            { searchList.length === 0 ? (
+              <div>
+                <h1> Nenhum produto foi encotrado</h1>
+                <h3> Selecione uma categoria </h3>
+              </div>
+
+            ) : searchList.map((product) => (
+              <ProductCard
+                key={ product.id }
+                productId={ product.id }
+                productTitle={ product.title }
+                productThumbnail={ product.thumbnail }
+                productPrice={ product.price }
+                onClick={ this.onButtonClick }
+                freeShipping={ product.shipping.free_shipping }
+              />
+            )) }
+          </section>
         </div>
       </div>
     );
