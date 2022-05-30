@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.categories {
+  background-color: lightgray;
+  margin-right: 1cm;
+}
+
+.cart-icon {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: bold;
+  margin: 35px;
+  padding: 10px;
+  border: solid lightcoral 5px;
+}
+
+header {
+  display: flex;
+}
+
+.productList {
+  flex-direction: column;
+  flex-wrap: multi-line;
+}
+
+.divisory {
+  display: flex;
+}

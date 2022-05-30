@@ -5,9 +5,12 @@ import CategorieButton from './CategorieButton';
 class CategoriesDisplay extends Component {
   render() {
     const { categories, onButtonClick } = this.props;
+    const centerTitle = {
+      textAlign: 'center',
+    };
     return (
       <aside>
-        <h1>Categorias</h1>
+        <h1 style={ centerTitle }>Categorias</h1>
         <ul>
           {categories.map(({ name, id }) => (
             <li key={ id }>
