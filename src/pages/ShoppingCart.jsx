@@ -22,7 +22,7 @@ class ShoppingCart extends Component {
     selectedItem.quantity += 1;
 
     this.setState({ cartItems: [...unselectedItems, selectedItem] },
-      localStorage.setItem('cartItems', cartItems));
+      localStorage.setItem('cartItems', JSON.stringify(cartItems)));
   }
 
   minusQuantity = ({ target }) => {
@@ -32,7 +32,7 @@ class ShoppingCart extends Component {
     selectedItem.quantity -= 1;
 
     this.setState({ cartItems: [...unselectedItems, selectedItem] },
-      localStorage.setItem('cartItems', cartItems));
+      localStorage.setItem('cartItems', JSON.stringify(cartItems)));
   }
 
   render() {

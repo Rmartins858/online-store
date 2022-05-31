@@ -13,17 +13,27 @@ state ={
   message: '',
   nota: '',
   avaliations: [],
+  itemsAdded: 0,
 }
 
 componentDidMount= async () => {
   this.getCartItemsFromLocalStorage();
   this.getAvaliationFromLocalStorage();
+  this.getItemsQuantityFromLocalStorage();
   await this.searchProduct();
 }
 
 getCartItemsFromLocalStorage = () => {
   const cartItems = (localStorage.getItem('cartItems'));
   this.setState({ cartItems });
+}
+
+getItemsQuantityFromLocalStorage = () => {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+  const itemsAdded = cartItems
+    ? cartItems.reduce((acc, curr) => acc + curr.quantity, 0) : 0;
+
+  this.setState({ itemsAdded });
 }
 
 searchProduct = async () => {
@@ -49,7 +59,8 @@ addProductToCart = () => {
   product.quantity = 1;
 
   this.setState((prevState) => ({
-    cartItems: cartItems ? [...prevState.cartItems, product] : [product],
+    cartItems: cartItems ? [...cartItems, product] : [product],
+    itemsAdded: prevState.itemsAdded + 1,
   }), this.saveCartItemsInLocalStorage);
 }
 
@@ -91,7 +102,7 @@ getAvaliationFromLocalStorage = () => {
 }
 
 render() {
-  const { product, attributes, freeShipping, avaliations } = this.state;
+  const { product, attributes, freeShipping, avaliations, itemsAdded } = this.state;
   const { match: { params: { id } } } = this.props;
   return (
     <div name={ product.id } data-testid="product">
@@ -116,7 +127,11 @@ render() {
       >
         Adicionar ao Carrinho
       </button>
-      <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
+      <Link to="/shopping-cart" data-testid="shopping-cart-button">
+        Carrinho
+        {' '}
+        <span data-testid="shopping-cart-size">{ itemsAdded }</span>
+      </Link>
 
       <div>
         <h1>Avaliações</h1>

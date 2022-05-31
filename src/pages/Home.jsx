@@ -10,10 +10,13 @@ class Home extends React.Component {
     searchList: [],
     search: [],
     cartItems: [],
+    itemsAdded: 0,
   }
 
   componentDidMount() {
     this.fetchCategories();
+    this.getCartItemsFromLocalStorage();
+    this.getItemsQuantityFromLocalStorage();
   }
 
   onInputChange= ({ target }) => {
@@ -46,6 +49,19 @@ class Home extends React.Component {
     this.setState({ categories });
   }
 
+  getCartItemsFromLocalStorage = () => {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    this.setState({ cartItems });
+  }
+
+  getItemsQuantityFromLocalStorage = () => {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    const itemsAdded = cartItems
+      ? cartItems.reduce((acc, curr) => acc + curr.quantity, 0) : 0;
+
+    this.setState({ itemsAdded });
+  }
+
   saveCartItemsInLocalStorage = () => {
     const { cartItems } = this.state;
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -54,17 +70,18 @@ class Home extends React.Component {
   // Adiciona quantidades
   onButtonClick = ({ target }) => {
     const { name } = target;
-    const { searchList } = this.state;
+    const { searchList, cartItems } = this.state;
     const cartItem = searchList.find((product) => product.id === name);
     cartItem.quantity = 1;
 
     this.setState((prevState) => ({
-      cartItems: [...prevState.cartItems, cartItem],
+      cartItems: cartItems ? [...cartItems, cartItem] : [cartItem],
+      itemsAdded: prevState.itemsAdded + 1,
     }), this.saveCartItemsInLocalStorage);
   }
 
   render() {
-    const { categories, search, searchList } = this.state;
+    const { categories, search, searchList, itemsAdded } = this.state;
     return (
       <div>
         <header>
@@ -90,7 +107,11 @@ class Home extends React.Component {
             </button>
           </div>
           <section className="cart-icon">
-            <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
+            <Link to="/shopping-cart" data-testid="shopping-cart-button">
+              Carrinho
+              {' '}
+              <span data-testid="shopping-cart-size">{ itemsAdded }</span>
+            </Link>
           </section>
         </header>
         <div className="divisory">
