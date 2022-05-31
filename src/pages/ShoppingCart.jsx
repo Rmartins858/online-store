@@ -36,11 +36,11 @@ minusQuantity = ({ target }) => {
   const { cartItems } = this.state;
   const unselectedItems = cartItems.filter((item) => item.id !== target.name);
   const selectedItem = cartItems.find((object) => object.id === target.name);
+  selectedItem.quantity -= 1;
 
-  this.setState((prevState) => ({
+  this.setState({
     cartItems: [...unselectedItems, selectedItem],
-    quantidade: prevState.quantidade - 1,
-  }),
+  },
   localStorage.setItem('cartItems', JSON.stringify(cartItems)));
 }
 
