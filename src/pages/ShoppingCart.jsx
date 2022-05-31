@@ -17,19 +17,22 @@ class ShoppingCart extends Component {
 
   plusQuantity = ({ target }) => {
     const { cartItems } = this.state;
-    const item = cartItems.find((object) => object.id === target.name);
-    item.quantity += 1;
-    this.setState({ cartItems });
-    console.log(cartItems);
-    localStorage.setItem('cartItems', cartItems);
+    const unselectedItems = cartItems.filter((item) => item.id !== target.name);
+    const selectedItem = cartItems.find((object) => object.id === target.name);
+    selectedItem.quantity += 1;
+
+    this.setState({ cartItems: [...unselectedItems, selectedItem] },
+      localStorage.setItem('cartItems', cartItems));
   }
 
   minusQuantity = ({ target }) => {
     const { cartItems } = this.state;
-    const item = cartItems.find((object) => object.id === target.name);
-    item.quantity -= 1;
-    this.setState({ cartItems });
-    localStorage.setItem('cartItems', cartItems);
+    const unselectedItems = cartItems.filter((item) => item.id !== target.name);
+    const selectedItem = cartItems.find((object) => object.id === target.name);
+    selectedItem.quantity -= 1;
+
+    this.setState({ cartItems: [...unselectedItems, selectedItem] },
+      localStorage.setItem('cartItems', cartItems));
   }
 
   render() {
@@ -62,7 +65,7 @@ class ShoppingCart extends Component {
                     Quantidade:
                     {' '}
                     <p data-testid="shopping-cart-product-quantity">
-                      {item.quantity}
+                      { item.quantity }
                     </p>
                     <button
                       type="button"
