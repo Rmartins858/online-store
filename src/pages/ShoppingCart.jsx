@@ -17,18 +17,22 @@ class ShoppingCart extends Component {
 
   plusQuantity = ({ target }) => {
     const { cartItems } = this.state;
-    const item = cartItems.find((object) => object.id === target.name);
-    item.quantity += 1;
-    this.setState({ cartItems });
-    localStorage.setItem('cartItems', cartItems);
+    const unselectedItems = cartItems.filter((item) => item.id !== target.name);
+    const selectedItem = cartItems.find((object) => object.id === target.name);
+    selectedItem.quantity += 1;
+
+    this.setState({ cartItems: [...unselectedItems, selectedItem] },
+      localStorage.setItem('cartItems', cartItems));
   }
 
   minusQuantity = ({ target }) => {
     const { cartItems } = this.state;
-    const item = cartItems.find((object) => object.id === target.name);
-    item.quantity -= 1;
-    this.setState({ cartItems });
-    localStorage.setItem('cartItems', cartItems);
+    const unselectedItems = cartItems.filter((item) => item.id !== target.name);
+    const selectedItem = cartItems.find((object) => object.id === target.name);
+    selectedItem.quantity -= 1;
+
+    this.setState({ cartItems: [...unselectedItems, selectedItem] },
+      localStorage.setItem('cartItems', cartItems));
   }
 
   render() {
@@ -55,13 +59,13 @@ class ShoppingCart extends Component {
                   <p style={ { fontWeight: 'bold' } }>
                     Preço: R$
                     {' '}
-                    { item.price * item.quantity }
+                    <span>{ item.price * item.quantity }</span>
                   </p>
                   <div style={ { display: 'flex' } }>
                     Quantidade:
                     {' '}
                     <p data-testid="shopping-cart-product-quantity">
-                      {item.quantity}
+                      { item.quantity }
                     </p>
                     <button
                       type="button"

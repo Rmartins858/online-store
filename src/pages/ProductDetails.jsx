@@ -46,6 +46,8 @@ saveCartItemsInLocalStorage = () => {
 
 addProductToCart = () => {
   const { product, cartItems } = this.state;
+  product.quantity = 1;
+
   this.setState((prevState) => ({
     cartItems: cartItems ? [...prevState.cartItems, product] : [product],
   }), this.saveCartItemsInLocalStorage);
