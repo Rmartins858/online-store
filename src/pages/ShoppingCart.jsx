@@ -20,6 +20,7 @@ class ShoppingCart extends Component {
     const item = cartItems.find((object) => object.id === target.name);
     item.quantity += 1;
     this.setState({ cartItems });
+    console.log(cartItems);
     localStorage.setItem('cartItems', cartItems);
   }
 
@@ -55,7 +56,7 @@ class ShoppingCart extends Component {
                   <p style={ { fontWeight: 'bold' } }>
                     Preço: R$
                     {' '}
-                    { item.price * item.quantity }
+                    <span>{ item.price * item.quantity }</span>
                   </p>
                   <div style={ { display: 'flex' } }>
                     Quantidade:
