@@ -8,22 +8,23 @@ class ProductCard extends Component {
       productPrice, onClick, freeShipping } = this.props;
     return (
       <section
+        className="products-map"
         data-testid="product"
         id={ productId }
       >
-        <h3>{ productTitle }</h3>
+        <h3 className="product-card-text">{ productTitle }</h3>
         {freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
         <img
           src={ productThumbnail }
           alt={ `Imagem de ${productTitle}` }
           style={ { width: '5cm' } }
         />
-        <p style={ { fontWeight: 'bold' } }>
+        <p style={ { fontWeight: 'bold', margin: '5px' } }>
           R$
           {' '}
           <span>{ productPrice }</span>
         </p>
-        <div style={ { margin: '15px' } }>
+        <div style={ { margin: '5px' } }>
           <Link
             data-testid="product-detail-link"
             to={ `/product-details/${productId}` }

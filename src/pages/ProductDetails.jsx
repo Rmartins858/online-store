@@ -105,35 +105,47 @@ render() {
   const { product, attributes, freeShipping, avaliations, itemsAdded } = this.state;
   const { match: { params: { id } } } = this.props;
   return (
-    <div name={ product.id } data-testid="product">
-      {freeShipping === true && (
-        <p data-testid="free-shipping">Frete grátis</p>)}
-      <img src={ product.thumbnail } alt={ product.title } />
-      <p data-testid="product-detail-name">{product.title}</p>
-      <p>{product.price}</p>
+    <div>
+      <div className="productDetails" name={ product.id } data-testid="product">
+        <div className="product">
+          {freeShipping === true && (
 
-      <ul>
-        {attributes.map((i) => (
-          <li key={ i.id }>
-            {`${i.name}: ${i.value_name}`}
-          </li>
-        ))}
-      </ul>
+            <p data-testid="free-shipping">Frete grátis</p>)}
+          <img src={ product.thumbnail } alt={ product.title } />
+          <p
+            data-testid="product-detail-name"
+          >
+            {product.title}
 
-      <button
-        type="button"
-        data-testid="product-detail-add-to-cart"
-        onClick={ this.addProductToCart }
-      >
-        Adicionar ao Carrinho
-      </button>
-      <Link to="/shopping-cart" data-testid="shopping-cart-button">
-        Carrinho
-        {' '}
-        <span data-testid="shopping-cart-size">{ itemsAdded }</span>
-      </Link>
-
-      <div>
+          </p>
+          <p>
+            {' '}
+            R$
+            {' '}
+            {product.price}
+          </p>
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.addProductToCart }
+          >
+            Adicionar ao Carrinho
+          </button>
+          <Link to="/shopping-cart" data-testid="shopping-cart-button">
+            Carrinho
+            {' '}
+            <span data-testid="shopping-cart-size">{ itemsAdded }</span>
+          </Link>
+        </div>
+        <ul className="attributes">
+          {attributes.map((i) => (
+            <li key={ i.id }>
+              {`${i.name}: ${i.value_name}`}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="rates">
         <h1>Avaliações</h1>
         <form>
           <input
@@ -201,7 +213,7 @@ render() {
             name="message"
           />
           <button
-            type="button"
+            type="submit"
             data-testid="submit-review-btn"
             onClick={ this.printAvaliation }
           >
@@ -211,7 +223,10 @@ render() {
       </div>
       {avaliations.filter((element) => element.id === id)
         .map((element, index) => (
-          <div key={ index }>
+          <div
+            className="ratesDone"
+            key={ index }
+          >
             <p>{ element.nota }</p>
             <p>{ element.email }</p>
             <p>{ element.message }</p>

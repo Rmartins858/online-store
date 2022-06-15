@@ -85,19 +85,21 @@ class Home extends React.Component {
     return (
       <div>
         <header>
-          <div>
+          <div className="home-initial">
             <h3 data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </h3>
             <input
-              type="text"
+              className="input-search"
+              type="search"
               value={ search }
               data-testid="query-input"
               placeholder="Pesquisar produto"
               onChange={ this.onInputChange }
             />
             <button
-              type="button"
+              className="btn-search"
+              type="submit"
               data-testid="query-button"
               onClick={ this.listageral }
             >
@@ -106,9 +108,10 @@ class Home extends React.Component {
               {' '}
             </button>
           </div>
+          <h5 className="fill">Lorem ipsum dolor sit amet, consectetur adipiscing.</h5>
           <section className="cart-icon">
             <Link to="/shopping-cart" data-testid="shopping-cart-button">
-              Carrinho
+              Carrinho:
               {' '}
               <span data-testid="shopping-cart-size">{ itemsAdded }</span>
             </Link>
