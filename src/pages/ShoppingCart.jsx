@@ -55,16 +55,22 @@ render() {
           Seu carrinho está vazio
         </h2>
       ) : (
-        <div>
+        <div className="cart-text">
+          <h2>
+            Carrinho de compras
+          </h2>
           {cartItems && (
             cartItems.map((item) => (
-              <div key={ item.id }>
+              <div
+                className="cart"
+                key={ item.id }
+              >
                 <img
                   src={ item.thumbnail }
                   alt={ item.title }
                   style={ { width: '7cm' } }
                 />
-                <h2 data-testid="shopping-cart-product-name">{ item.title }</h2>
+                <h3 data-testid="shopping-cart-product-name">{ item.title }</h3>
                 <p style={ { fontWeight: 'bold' } }>
                   Preço: R$
                   {' '}
